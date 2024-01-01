@@ -1,10 +1,17 @@
 <?php
 
-use Dotenv\Dotenv;
+require_once __DIR__ . '/vendor/autoload.php';
 
-require_once('.env');
-$dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
-$botToken = $_ENV('BOT_TOKEN');
-$apiURL = "https://api.telegram.org/bot$botToken/";
+$translator = new GoogleTranslate();
+
+// Установка исходного и целевого языка (если не указать, библиотека использует автоопределение)
+$translator->setSource('en');
+$translator->setTarget('ru');
+
+$textToTranslate = 'Hello, how are you?';
+$translation = $translator->translate($textToTranslate);
+
+echo 'Original: ' . $textToTranslate . PHP_EOL;
+echo 'Translation: ' . $translation . PHP_EOL;
